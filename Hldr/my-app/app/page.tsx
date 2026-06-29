@@ -1,18 +1,8 @@
-'use client';
-
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import { motion, Variants } from "framer-motion";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-};
+import Image from "next/image";
+import AnimatedSection from "./components/AnimatedSection";
+import AnimatedDiv from "./components/AnimatedDiv";
 
 export default function Home() {
   return (
@@ -23,92 +13,88 @@ export default function Home() {
         <HeroSection />
 
         {/* Gallery Section */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="py-24 px-6 md:px-16 max-w-7xl mx-auto" 
-          id="gallery"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-16">
+        <AnimatedSection className="py-24 px-6 md:px-16 max-w-7xl mx-auto" id="gallery">
+          <AnimatedDiv className="text-center mb-16">
             <span className="font-sans text-xs text-tertiary uppercase tracking-widest mb-4 block">Visual Journey</span>
             <h2 className="font-display text-4xl md:text-5xl text-primary">The Delite Experience</h2>
             <p className="font-body text-on-surface-variant max-w-2xl mx-auto mt-6 text-sm md:text-base">
               Immerse yourself in the captivating atmosphere and stunning presentations that define our establishment. A feast for the eyes before it reaches the palate.
             </p>
-          </motion.div>
+          </AnimatedDiv>
           
           <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
             {/* Image 1 */}
-            <motion.div variants={fadeInUp} className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
-              <img 
+            <AnimatedDiv className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
+              <Image 
+                width={600} height={800}
+                loading="lazy"
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100" 
                 alt="Delite Front" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFMVamyp7uMtGqnhpryCEAOqhd-JXYFtSFgxSGcumctZt6gw6znuQNLe82BIRr-hoFDMyJEAfHRuGskW--bNwqjGfoYUE1QhGn6K_b-nwZEAgP5fUk7MxpULIM23GVwKbLllVqu8qCUM9dO=w496-h662-p-k-no"
               />
-            </motion.div>
+            </AnimatedDiv>
             
             {/* Image 2 */}
-            <motion.div variants={fadeInUp} className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
-              <img 
+            <AnimatedDiv className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
+              <Image 
+                width={600} height={800}
+                loading="lazy"
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100" 
                 alt="Interior" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFu8Jd3_fA6I3LfbSYkNgP1j_Sh3NSX3nqAwB5jQqy8HPDOfTL3uENfZtfqVxGx837GsabB1O2PuDZOQZVUyXwXB0JSLn_e66kbuEFU43nZ2Vo5siYkXyJDki6PcEr921DOQtKdgw=w496-h662-p-k-no"
               />
-            </motion.div>
+            </AnimatedDiv>
 
             {/* Image 3 */}
-            <motion.div variants={fadeInUp} className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
-              <img 
+            <AnimatedDiv className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
+              <Image 
+                width={600} height={800}
+                loading="lazy"
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100" 
                 alt="Details" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFyTJPhsZr95gYPtGvcOCpsdNKhJEGRY4LQjdDnXqvChieL6jnF9Jjt6uOk-dYBVKNZXngIr9Mkq62iNYeAy69MQm8LI3VTxDCXA9n9smFz2LIjhnjxf2X0YQbBrIBxNVl2LzwTgtNo-oI=w496-h662-p-k-no"
               />
-            </motion.div>
+            </AnimatedDiv>
             
             {/* Image 4 */}
-            <motion.div variants={fadeInUp} className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
-              <img 
+            <AnimatedDiv className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
+              <Image 
+                width={600} height={800}
+                loading="lazy"
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100" 
                 alt="Setup" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGa0LBeoKJSlkBXRuGIu98ZptQKF4s08lH_GPSJTHGLGilRyTVG9wVSrYnKD2wErDHPZUgd6glG5AGj2FOvtYaqgH_OSVPcH3ypyg8nqzOaEtM-d1CA24UILGYzazgOkuZhOW_c-0Rea8Q=w496-h662-p-k-no"
               />
-            </motion.div>
+            </AnimatedDiv>
 
             {/* Image 5 */}
-            <motion.div variants={fadeInUp} className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
-              <img 
+            <AnimatedDiv className="relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5 inline-block w-full">
+              <Image 
+                width={600} height={800}
+                loading="lazy"
                 referrerPolicy="no-referrer"
                 className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100" 
                 alt="Ambiance" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGKf4eFYln2TE6q7rJ2OdjLJWDUppzK-ZKczP18uwYGI5egECZST0eznuDKKt2sqBZz5N8wfFpW-zzqOj3UYHzv2kBn_Ern9ksa32OIbKFeHRewForeEZF96fA2BGSUcWne_5baH72b8CqB=w496-h662-p-k-no"
               />
-            </motion.div>
+            </AnimatedDiv>
           </div>
-        </motion.section>
+        </AnimatedSection>
 
         {/* The Culinary Art */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="py-24 px-6 md:px-16 max-w-7xl mx-auto relative" 
-          id="menu"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-16 md:mb-24">
+        <AnimatedSection className="py-24 px-6 md:px-16 max-w-7xl mx-auto relative" id="menu">
+          <AnimatedDiv className="text-center mb-16 md:mb-24">
             <span className="font-sans text-xs text-tertiary uppercase tracking-widest mb-4 block">Our Signature</span>
             <h2 className="font-display text-4xl md:text-5xl text-primary">The Culinary Art</h2>
-          </motion.div>
+          </AnimatedDiv>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px] md:auto-rows-[400px]">
             {/* Main Dish */}
-            <motion.div variants={fadeInUp} className="md:col-span-8 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
-              <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Plated dish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG8v7iQRWqwVdZwBiQuLqUKUUk3beOcaBmdolXa9Ix7mvaS-kVtQdIYtcAuIRU8cEB0Ec5mL8IQHZXwZhRm_LVr1G4RVLLStsexDzEEKQaxUBCpE8t762MMGg6N3IO0ZBejz0Cgu_qUtM_zolOXyDgwVwHOQEzdArwvrDi903sSSUGUHSKoilammo9yOTpYIcxyXKWw6FNxh3TGPegoxeMEiK3VhT9jqil5-3N1mjhZeGqDfj7ASJsQEOo2bQuDiQi8bT-TZImrDsv"/>
+            <AnimatedDiv className="md:col-span-8 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
+              <Image fill sizes="(max-width: 768px) 100vw, 66vw" loading="lazy" className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Plated dish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG8v7iQRWqwVdZwBiQuLqUKUUk3beOcaBmdolXa9Ix7mvaS-kVtQdIYtcAuIRU8cEB0Ec5mL8IQHZXwZhRm_LVr1G4RVLLStsexDzEEKQaxUBCpE8t762MMGg6N3IO0ZBejz0Cgu_qUtM_zolOXyDgwVwHOQEzdArwvrDi903sSSUGUHSKoilammo9yOTpYIcxyXKWw6FNxh3TGPegoxeMEiK3VhT9jqil5-3N1mjhZeGqDfj7ASJsQEOo2bQuDiQi8bT-TZImrDsv"/>
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 w-full">
                 <div className="flex justify-between items-end">
@@ -120,46 +106,39 @@ export default function Home() {
                   <span className="font-display text-3xl text-primary">$42</span>
                 </div>
               </div>
-            </motion.div>
+            </AnimatedDiv>
             {/* Side Dish 1 */}
-            <motion.div variants={fadeInUp} className="md:col-span-4 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
-              <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Dessert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDedbz_Zo5T8CbVZ29XksVz-vZ7w5eoHBfByq6pg_VmH4QQmde_FLOxPfqaFCLFfwuwqzXjlzysFu9OwDw0mfPZwynv5xIfybB3zvex_dMtRNaWGEMI4r08KhneMNm85qByq7fhr3x2C8c7Z-J49nqKxAXQXFc05qR9clqHvpY1HJBSgixfdzwDMX4SdaP8yY9JRoivHFAzocq1lne--O_uJ9aBay_0Sa8Gu31G-Jx6ob7DWfnbYZZ2EgkUmJP2bew0SKsZg3q8F64n"/>
+            <AnimatedDiv className="md:col-span-4 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
+              <Image fill sizes="(max-width: 768px) 100vw, 33vw" loading="lazy" className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Dessert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDedbz_Zo5T8CbVZ29XksVz-vZ7w5eoHBfByq6pg_VmH4QQmde_FLOxPfqaFCLFfwuwqzXjlzysFu9OwDw0mfPZwynv5xIfybB3zvex_dMtRNaWGEMI4r08KhneMNm85qByq7fhr3x2C8c7Z-J49nqKxAXQXFc05qR9clqHvpY1HJBSgixfdzwDMX4SdaP8yY9JRoivHFAzocq1lne--O_uJ9aBay_0Sa8Gu31G-Jx6ob7DWfnbYZZ2EgkUmJP2bew0SKsZg3q8F64n"/>
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6 w-full">
                 <h3 className="font-display text-2xl text-on-surface mb-1">Ember Sphere</h3>
                 <p className="font-body text-sm text-on-surface-variant">Dark cocoa, wild berry core.</p>
               </div>
-            </motion.div>
+            </AnimatedDiv>
             {/* Side Dish 2 */}
-            <motion.div variants={fadeInUp} className="md:col-span-4 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
-              <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Cocktail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnfbM2nsQQOmXaQSafleX4KTyb3_wNumwCFDpTRhOjCng14kMtP1u-WovukLFuMyh0VV8VSOZqfumbGmDWpJBUaSvIeb5D79WqaR-OA4keB0NdHc6E-jZe4RtM-AIugu2RFBd_-9HOP6iahYbfWGUFQIEEknInQ6AaA-alJkir2c1D-zd49nVOp-EvjgUuT_Zy6i87qgT3IQuNboX6q-EujW_nfnFH1emUEUZZZTXSjlpF0Hs0XfOx5-_nbe-iNVM5GeGJMMnzre7o"/>
+            <AnimatedDiv className="md:col-span-4 relative group overflow-hidden rounded-xl bg-surface-container-high border border-white/5">
+              <Image fill sizes="(max-width: 768px) 100vw, 33vw" loading="lazy" className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="Cocktail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnfbM2nsQQOmXaQSafleX4KTyb3_wNumwCFDpTRhOjCng14kMtP1u-WovukLFuMyh0VV8VSOZqfumbGmDWpJBUaSvIeb5D79WqaR-OA4keB0NdHc6E-jZe4RtM-AIugu2RFBd_-9HOP6iahYbfWGUFQIEEknInQ6AaA-alJkir2c1D-zd49nVOp-EvjgUuT_Zy6i87qgT3IQuNboX6q-EujW_nfnFH1emUEUZZZTXSjlpF0Hs0XfOx5-_nbe-iNVM5GeGJMMnzre7o"/>
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6 w-full">
                 <h3 className="font-display text-2xl text-on-surface mb-1">Velvet Elixir</h3>
                 <p className="font-body text-sm text-on-surface-variant">Botanical gin, pomegranate, smoke.</p>
               </div>
-            </motion.div>
+            </AnimatedDiv>
             {/* Abstract block */}
-            <motion.div variants={fadeInUp} className="md:col-span-8 bg-surface-container flex items-center justify-center p-12 rounded-xl border border-white/5 relative overflow-hidden">
+            <AnimatedDiv className="md:col-span-8 bg-surface-container flex items-center justify-center p-12 rounded-xl border border-white/5 relative overflow-hidden">
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--color-primary)_0%,_transparent_70%)]"></div>
               <div className="text-center relative z-10">
                 <span className="material-symbols-outlined text-4xl text-tertiary mb-6 block">restaurant</span>
                 <h3 className="font-display text-3xl text-primary mb-4">A Symphony of Senses</h3>
                 <p className="font-body text-base text-on-surface-variant max-w-md mx-auto">Every dish is meticulously crafted to challenge expectations and delight the palate, utilizing only the most premium, ethically sourced ingredients.</p>
               </div>
-            </motion.div>
+            </AnimatedDiv>
           </div>
-        </motion.section>
+        </AnimatedSection>
 
         {/* A Space for Unforgettable Evenings */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-32 px-6 md:px-16" 
-          id="story"
-        >
+        <AnimatedSection className="py-32 px-6 md:px-16" id="story">
           <div className="max-w-7xl mx-auto bg-surface-container/60 rounded-3xl overflow-hidden shadow-2xl border border-white/5 flex flex-col md:flex-row items-stretch">
             {/* Left side: Content */}
             <div className="flex-1 flex flex-col justify-center p-12 md:p-20 order-2 md:order-1">
@@ -180,24 +159,18 @@ export default function Home() {
             
             {/* Right side: Image */}
             <div className="flex-1 min-h-[400px] md:min-h-full relative order-1 md:order-2">
-              <img 
-                className="absolute inset-0 w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" 
+              <Image 
+                fill sizes="(max-width: 768px) 100vw, 50vw" loading="lazy"
+                className="object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" 
                 alt="Atmosphere" 
                 src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFu8Jd3_fA6I3LfbSYkNgP1j_Sh3NSX3nqAwB5jQqy8HPDOfTL3uENfZtfqVxGx837GsabB1O2PuDZOQZVUyXwXB0JSLn_e66kbuEFU43nZ2Vo5siYkXyJDki6PcEr921DOQtKdgw=w496-h662-p-k-no"
               />
             </div>
           </div>
-        </motion.section>
+        </AnimatedSection>
 
         {/* Reserve Your Experience */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeInUp}
-          className="py-32 px-6 md:px-16 max-w-7xl mx-auto" 
-          id="reservations"
-        >
+        <AnimatedSection className="py-32 px-6 md:px-16 max-w-7xl mx-auto" id="reservations">
           <div className="bg-surface/40 backdrop-blur-2xl border border-white/10 rounded-2xl p-8 md:p-16 max-w-3xl mx-auto relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary opacity-5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary opacity-5 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2"></div>
@@ -240,7 +213,7 @@ export default function Home() {
               </div>
             </form>
           </div>
-        </motion.section>
+        </AnimatedSection>
       </main>
 
       {/* Footer */}
