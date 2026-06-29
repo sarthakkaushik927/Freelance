@@ -58,24 +58,12 @@ export default function HeroSection() {
       if (loadedCount >= USED_FRAMES) setLoaded(true);
     };
 
-    // Load the rest of the frames in the background so we don't block the initial page render
-    for (let i = 1; i < USED_FRAMES; i++) {
-      const src = getFrameSrc(i);
-      
-      // Preload in memory
+    for (let i = 0; i < USED_FRAMES; i++) {
       const img = new Image();
-      img.src = src;
+      img.src = getFrameSrc(i);
       img.onload = preload;
       img.onerror = preload;
-      
-      // Assign to the DOM node
-      if (imagesRef.current[i]) {
-        imagesRef.current[i]!.src = src;
-      }
     }
-    
-    // Manually trigger preload for frame 0 since it's already in the DOM
-    preload();
   }, []);
 
   // Text 1: Starts in the middle, slides elegantly to the Left
@@ -101,7 +89,16 @@ export default function HeroSection() {
     >
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         
-        {/* Removed loading bar to allow immediate rendering */}
+        {/* Loading bar */}
+        {!loaded && (
+          <div style={{ position: 'absolute', inset: 0, background: 'var(--color-background)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+            <div style={{ fontFamily: 'var(--font-headline-display)', fontSize: 32, letterSpacing: '0.2em', color: 'var(--color-primary)' }}>DELITE</div>
+            <div style={{ width: 200, height: 2, background: 'var(--color-outline-variant)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'var(--color-primary)', transform: `scaleX(${loadProgress / 100})`, transformOrigin: 'left', transition: 'transform 0.2s' }} />
+            </div>
+            <div style={{ fontSize: 10, letterSpacing: '0.3em', color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>{loadProgress}%</div>
+          </div>
+        )}
 
         {/* DOM-based Image sequence */}
         <div 
@@ -116,7 +113,7 @@ export default function HeroSection() {
             <img
               key={i}
               ref={(el) => { imagesRef.current[i] = el; }} // 3. Attach element to our ref array
-              src={i === 0 ? getFrameSrc(i) : undefined}
+              src={getFrameSrc(i)}
               alt=""
               style={{
                 position: 'absolute',
@@ -133,8 +130,9 @@ export default function HeroSection() {
           <div className="absolute inset-0" style={{ background: 'radial-gradient(circle, transparent 20%, rgba(19, 19, 19, 0.8) 100%)' }} />
         </div>
 
-        {/* Render texts immediately so user isn't blocked */}
-        <>
+        {/* Render texts only AFTER loading is complete */}
+        {loaded && (
+          <>
           {/* Text 1 */}
           <motion.div
             className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start z-10 pb-[15vh] md:pb-0 px-6 md:pl-[10vw] md:w-1/2"
@@ -191,7 +189,8 @@ export default function HeroSection() {
               </p>
             </div>
           </motion.div>
-        </>
+          </>
+        )}
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-10 text-on-surface-variant">
           <div className="w-px h-16 bg-gradient-to-b from-transparent to-primary"></div>
