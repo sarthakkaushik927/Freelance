@@ -2,14 +2,14 @@
 
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
@@ -157,22 +157,34 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
-          className="py-24 relative bg-surface-container-lowest border-y border-white/5" 
+          className="py-32 px-6 md:px-16" 
           id="story"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto rounded-xl overflow-hidden shadow-2xl">
-            <div className="h-[500px] md:h-auto relative">
-              <img className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700" alt="Atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTzOWgRZesoCxYU7b5Ygs1grQiUcC1JdZGVSD3B5-zlQj7BqPFTDpqD4C_q7M4L8EKMY97lYtAKpcUEcUXo93UOLnAdo4zSbCTa8ZLhbdEmYUhGVKJDz6V7C8VV93Loy1htf5JkpR8zJVMN2KX2OU0m3vQDVlej_wajnqId83tRY0ItrT0ppBbfrFZ1eXSYPQLERC71H6ERy0oA6JvkoyRu10L4kuDxqGxmF5O9QeULx5zgExHKHU4lTb8h_wzH3Xs5GJYGf4bakgR"/>
-            </div>
-            <div className="flex items-center justify-center p-12 md:p-24 bg-surface-container/80">
-              <div className="max-w-lg text-center md:text-left">
-                <span className="font-sans text-xs text-tertiary uppercase tracking-widest mb-6 block">The Atmosphere</span>
-                <h2 className="font-display text-4xl md:text-5xl text-primary mb-8 leading-tight">Designed for intimacy<br/>and grandeur.</h2>
-                <p className="font-body text-lg text-on-surface-variant mb-10">
-                  Our space is a canvas for your unforgettable evenings. Combining rich burgundy aesthetics with striking contemporary editorial elements, we provide a setting that is as provocative as our menu. 
-                </p>
-                <a className="font-display italic text-xl text-on-surface border-b border-tertiary pb-1 hover:text-tertiary transition-colors inline-block" href="#reservations">Experience the ambiance</a>
+          <div className="max-w-7xl mx-auto bg-surface-container/60 rounded-3xl overflow-hidden shadow-2xl border border-white/5 flex flex-col md:flex-row items-stretch">
+            {/* Left side: Content */}
+            <div className="flex-1 flex flex-col justify-center p-12 md:p-20 order-2 md:order-1">
+              <span className="font-sans text-xs text-tertiary uppercase tracking-widest mb-6 block border-l-2 border-tertiary pl-4">The Atmosphere</span>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary mb-8 leading-[1.1]">
+                Designed for <br/>intimacy and grandeur.
+              </h2>
+              <p className="font-body text-base md:text-lg text-on-surface-variant mb-10 leading-relaxed max-w-lg">
+                Our space is a canvas for your unforgettable evenings. Combining rich burgundy aesthetics with striking contemporary editorial elements, we provide a setting that is as provocative as our menu. 
+              </p>
+              <div>
+                <a className="group inline-flex items-center gap-4 font-display italic text-xl text-on-surface hover:text-tertiary transition-colors" href="#reservations">
+                  <span className="border-b border-tertiary pb-1 group-hover:border-transparent transition-colors">Experience the ambiance</span>
+                  <span className="material-symbols-outlined transform group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </a>
               </div>
+            </div>
+            
+            {/* Right side: Image */}
+            <div className="flex-1 min-h-[400px] md:min-h-full relative order-1 md:order-2">
+              <img 
+                className="absolute inset-0 w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-1000" 
+                alt="Atmosphere" 
+                src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFu8Jd3_fA6I3LfbSYkNgP1j_Sh3NSX3nqAwB5jQqy8HPDOfTL3uENfZtfqVxGx837GsabB1O2PuDZOQZVUyXwXB0JSLn_e66kbuEFU43nZ2Vo5siYkXyJDki6PcEr921DOQtKdgw=w496-h662-p-k-no"
+              />
             </div>
           </div>
         </motion.section>
