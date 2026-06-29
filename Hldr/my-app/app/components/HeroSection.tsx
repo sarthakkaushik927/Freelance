@@ -3,18 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
-const TOTAL_FRAMES = 271;
-const FRAME_STEP = 2; 
-const USED_FRAMES = Math.ceil(TOTAL_FRAMES / FRAME_STEP);
+const USED_FRAMES = 240;
 
 function padded(n: number) {
   return n.toString().padStart(3, '0');
 }
 
 function getFrameSrc(index: number) {
-  const frameNum = index * FRAME_STEP;
-  if (frameNum === 0) return '/frames/ezgif-frame-000.png';
-  return `/frames/ezgif-frame-${padded(frameNum)}.jpg`;
+  if (index === 0) return '/newframes/frame_240.png';
+  return `/newframes/frame_${padded(index)}.png`;
 }
 
 export default function HeroSection() {

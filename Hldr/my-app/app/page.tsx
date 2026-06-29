@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
-import MenuSection from "./components/MenuSection";
+
 import GallerySection from "./components/GallerySection";
 import ReservationSection from "./components/ReservationSection";
 import Footer from "./components/Footer";
@@ -17,7 +17,7 @@ export default function Home() {
         <section id="about">
           <AboutSection />
         </section>
-        <MenuSection />
+
         <section id="gallery">
           <GallerySection />
         </section>
