@@ -58,12 +58,24 @@ export default function HeroSection() {
       if (loadedCount >= USED_FRAMES) setLoaded(true);
     };
 
-    for (let i = 0; i < USED_FRAMES; i++) {
+    // Load the rest of the frames in the background so we don't block the initial page render
+    for (let i = 1; i < USED_FRAMES; i++) {
+      const src = getFrameSrc(i);
+      
+      // Preload in memory
       const img = new Image();
-      img.src = getFrameSrc(i);
+      img.src = src;
       img.onload = preload;
       img.onerror = preload;
+      
+      // Assign to the DOM node
+      if (imagesRef.current[i]) {
+        imagesRef.current[i]!.src = src;
+      }
     }
+    
+    // Manually trigger preload for frame 0 since it's already in the DOM
+    preload();
   }, []);
 
   // Text 1: Starts in the middle, slides elegantly to the Left
@@ -89,16 +101,7 @@ export default function HeroSection() {
     >
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         
-        {/* Loading bar */}
-        {!loaded && (
-          <div style={{ position: 'absolute', inset: 0, background: 'var(--color-background)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-            <div style={{ fontFamily: 'var(--font-headline-display)', fontSize: 32, letterSpacing: '0.2em', color: 'var(--color-primary)' }}>DELITE</div>
-            <div style={{ width: 200, height: 2, background: 'var(--color-outline-variant)', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'var(--color-primary)', transform: `scaleX(${loadProgress / 100})`, transformOrigin: 'left', transition: 'transform 0.2s' }} />
-            </div>
-            <div style={{ fontSize: 10, letterSpacing: '0.3em', color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>{loadProgress}%</div>
-          </div>
-        )}
+        {/* Removed loading bar to allow immediate rendering */}
 
         {/* DOM-based Image sequence */}
         <div 
@@ -113,7 +116,7 @@ export default function HeroSection() {
             <img
               key={i}
               ref={(el) => { imagesRef.current[i] = el; }} // 3. Attach element to our ref array
-              src={getFrameSrc(i)}
+              src={i === 0 ? getFrameSrc(i) : undefined}
               alt=""
               style={{
                 position: 'absolute',
@@ -130,48 +133,65 @@ export default function HeroSection() {
           <div className="absolute inset-0" style={{ background: 'radial-gradient(circle, transparent 20%, rgba(19, 19, 19, 0.8) 100%)' }} />
         </div>
 
-        {/* Render texts only AFTER loading is complete */}
-        {loaded && (
-          <>
-            {/* Text 2 */}
-            <motion.div
-              className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-end z-10 pb-[15vh] md:pb-0 px-6 md:pr-[10vw] md:w-1/2 md:ml-auto"
-              style={{ opacity: text2Opacity, x: text2X, pointerEvents: 'none' }}
-            >
-              <div className="max-w-xl text-center md:text-right">
-                <div className="flex items-center justify-center md:justify-end gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
-                  <div className="w-10 h-px bg-tertiary hidden md:block"></div>
-                  Artisanal Craft
-                </div>
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
-                  A Dance of <br/><em className="text-primary not-italic">Ingredients</em>
-                </h1>
-                <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-auto md:mr-0">
-                  Sourced locally, prepared globally. Every element tells a story.
-                </p>
+        {/* Render texts immediately so user isn't blocked */}
+        <>
+          {/* Text 1 */}
+          <motion.div
+            className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start z-10 pb-[15vh] md:pb-0 px-6 md:pl-[10vw] md:w-1/2"
+            style={{ opacity: text1Opacity, x: text1X, pointerEvents: 'none' }}
+          >
+            <div className="max-w-xl text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
+                Welcome to Delite
+                <div className="w-10 h-px bg-tertiary hidden md:block"></div>
               </div>
-            </motion.div>
+              <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
+                A Culinary <br/><em className="text-primary not-italic">Journey</em>
+              </h1>
+              <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-0 md:mr-auto">
+                Discover a hidden oasis where exquisite flavors meet modern artistry.
+              </p>
+            </div>
+          </motion.div>
 
-            {/* Text 3 */}
-            <motion.div
-              className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start z-10 pb-[15vh] md:pb-0 px-6 md:pl-[10vw] md:w-1/2"
-              style={{ opacity: text3Opacity, x: text3X, pointerEvents: 'none' }}
-            >
-              <div className="max-w-xl text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
-                  The Atmosphere
-                  <div className="w-10 h-px bg-tertiary hidden md:block"></div>
-                </div>
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
-                  Designed for <br/><em className="text-primary not-italic">The Senses</em>
-                </h1>
-                <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-0 md:mr-auto">
-                  Warmth and vibrancy in every corner, making memories unforgettable.
-                </p>
+          {/* Text 2 */}
+          <motion.div
+            className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-end z-10 pb-[15vh] md:pb-0 px-6 md:pr-[10vw] md:w-1/2 md:ml-auto"
+            style={{ opacity: text2Opacity, x: text2X, pointerEvents: 'none' }}
+          >
+            <div className="max-w-xl text-center md:text-right">
+              <div className="flex items-center justify-center md:justify-end gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
+                <div className="w-10 h-px bg-tertiary hidden md:block"></div>
+                Artisanal Craft
               </div>
-            </motion.div>
-          </>
-        )}
+              <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
+                A Dance of <br/><em className="text-primary not-italic">Ingredients</em>
+              </h1>
+              <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-auto md:mr-0">
+                Sourced locally, prepared globally. Every element tells a story.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Text 3 */}
+          <motion.div
+            className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start z-10 pb-[15vh] md:pb-0 px-6 md:pl-[10vw] md:w-1/2"
+            style={{ opacity: text3Opacity, x: text3X, pointerEvents: 'none' }}
+          >
+            <div className="max-w-xl text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
+                The Atmosphere
+                <div className="w-10 h-px bg-tertiary hidden md:block"></div>
+              </div>
+              <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
+                Designed for <br/><em className="text-primary not-italic">The Senses</em>
+              </h1>
+              <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-0 md:mr-auto">
+                Warmth and vibrancy in every corner, making memories unforgettable.
+              </p>
+            </div>
+          </motion.div>
+        </>
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-10 text-on-surface-variant">
           <div className="w-px h-16 bg-gradient-to-b from-transparent to-primary"></div>
