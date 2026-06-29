@@ -66,21 +66,21 @@ export default function HeroSection() {
     }
   }, []);
 
- // Text 1: Starts in the middle, slides completely out to the Left
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
-  const text1X = useTransform(scrollYProgress, [0, 0.15, 0.2], [0, 0, "-100vw"]);
+  // Text 1: Starts in the middle, slides elegantly to the Left
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.17, 0.2], [1, 1, 0]);
+  const text1X = useTransform(scrollYProgress, [0, 0.17, 0.2], [0, 0, -60]);
 
-  // Text 2: Slides in from far Right, stops at exact center (0), slides out to far Left
-  const text2Opacity = useTransform(scrollYProgress, [0.2, 0.25, 0.4, 0.45], [0, 1, 1, 0]);
-  const text2X = useTransform(scrollYProgress, [0.2, 0.25, 0.4, 0.45], ["100vw", 0, 0, "-100vw"]);
+  // Text 2: Slides in from Right, stops at exact center (0), slides out to Left
+  const text2Opacity = useTransform(scrollYProgress, [0.24, 0.27, 0.43, 0.46], [0, 1, 1, 0]);
+  const text2X = useTransform(scrollYProgress, [0.24, 0.27, 0.43, 0.46], [60, 0, 0, -60]);
 
-  // Text 3: Slides in from far Left, stops at exact center (0), slides out to far Right
-  const text3Opacity = useTransform(scrollYProgress, [0.45, 0.5, 0.65, 0.7], [0, 1, 1, 0]);
-  const text3X = useTransform(scrollYProgress, [0.45, 0.5, 0.65, 0.7], ["-100vw", 0, 0, "100vw"]);
+  // Text 3: Slides in from Left, stops at exact center (0), slides out to Right
+  const text3Opacity = useTransform(scrollYProgress, [0.5, 0.53, 0.68, 0.71], [0, 1, 1, 0]);
+  const text3X = useTransform(scrollYProgress, [0.5, 0.53, 0.68, 0.71], [-60, 0, 0, 60]);
 
-  // Text 4: Slides in from far Bottom, stops at exact center (0)
-  const text4Opacity = useTransform(scrollYProgress, [0.7, 0.75, 1], [0, 1, 1]);
-  const text4Y = useTransform(scrollYProgress, [0.7, 0.75, 1], ["100vh", 0, 0]);
+  // Text 4: Slides in from Bottom, stops at exact center (0)
+  const text4Opacity = useTransform(scrollYProgress, [0.75, 0.78, 1], [0, 1, 1]);
+  const text4Y = useTransform(scrollYProgress, [0.75, 0.78, 1], [60, 0, 0]);
 
   return (
     <div
@@ -91,12 +91,12 @@ export default function HeroSection() {
         
         {/* Loading bar */}
         {!loaded && (
-          <div style={{ position: 'absolute', inset: 0, background: '#050505', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-            <div style={{ fontFamily: 'Cinzel, serif', fontSize: 28, letterSpacing: '0.3em', color: '#d4af37' }}>HLDR</div>
-            <div style={{ width: 200, height: 2, background: 'rgba(212,175,55,0.2)', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', inset: 0, background: '#d4af37', transform: `scaleX(${loadProgress / 100})`, transformOrigin: 'left', transition: 'transform 0.2s' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'var(--color-background)', zIndex: 100, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+            <div style={{ fontFamily: 'var(--font-headline-display)', fontSize: 32, letterSpacing: '0.2em', color: 'var(--color-primary)' }}>DELITE</div>
+            <div style={{ width: 200, height: 2, background: 'var(--color-outline-variant)', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'var(--color-primary)', transform: `scaleX(${loadProgress / 100})`, transformOrigin: 'left', transition: 'transform 0.2s' }} />
             </div>
-            <div style={{ fontSize: 10, letterSpacing: '0.3em', color: '#666', fontWeight: 600 }}>{loadProgress}%</div>
+            <div style={{ fontSize: 10, letterSpacing: '0.3em', color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>{loadProgress}%</div>
           </div>
         )}
 
@@ -106,7 +106,7 @@ export default function HeroSection() {
           style={{ 
             width: '100vw', height: '100vh', 
             position: 'absolute', inset: 0, 
-            zIndex: 0, background: '#000'
+            zIndex: 0, background: 'var(--color-background)'
           }}
         >
           {Array.from({ length: USED_FRAMES }).map((_, i) => (
@@ -127,59 +127,55 @@ export default function HeroSection() {
             />
           ))}
           {/* Subtle vignette overlay so text is readable */}
-          <div className="absolute inset-0" style={{ background: 'radial-gradient(circle, transparent 20%, rgba(0,0,0,0.7) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(circle, transparent 20%, rgba(19, 19, 19, 0.8) 100%)' }} />
         </div>
 
-        {/* Text 1 */}
-        <motion.div
-          className="hero-content absolute inset-0 flex flex-col items-center justify-center z-10"
-          style={{ opacity: text1Opacity, x: text1X, pointerEvents: loaded ? 'auto' : 'none' }}
-        >
-          <div className="hero-eyebrow">Est. 2019 · Fine Dining</div>
-          <h1 className="hero-title">Where Flavour <br/>Finds its <em>Soul</em></h1>
-          <p className="hero-subtitle">An intimate experience of contemporary cuisine rooted in heritage.</p>
-        </motion.div>
+        {/* Render texts only AFTER loading is complete */}
+        {loaded && (
+          <>
+            {/* Text 2 */}
+            <motion.div
+              className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-end z-10 pb-[15vh] md:pb-0 px-6 md:pr-[10vw] md:w-1/2 md:ml-auto"
+              style={{ opacity: text2Opacity, x: text2X, pointerEvents: 'none' }}
+            >
+              <div className="max-w-xl text-center md:text-right">
+                <div className="flex items-center justify-center md:justify-end gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
+                  <div className="w-10 h-px bg-tertiary hidden md:block"></div>
+                  Artisanal Craft
+                </div>
+                <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
+                  A Dance of <br/><em className="text-primary not-italic">Ingredients</em>
+                </h1>
+                <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-auto md:mr-0">
+                  Sourced locally, prepared globally. Every element tells a story.
+                </p>
+              </div>
+            </motion.div>
 
-        {/* Text 2 */}
-        <motion.div
-          className="hero-content absolute inset-0 flex flex-col items-center justify-center z-10"
-          style={{ opacity: text2Opacity, x: text2X, pointerEvents: 'none' }}
-        >
-          <div className="hero-eyebrow">Artisanal Craft</div>
-          <h1 className="hero-title">A Dance of <br/><em>Ingredients</em></h1>
-          <p className="hero-subtitle">Sourced locally, prepared globally. Every element tells a story.</p>
-        </motion.div>
+            {/* Text 3 */}
+            <motion.div
+              className="absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start z-10 pb-[15vh] md:pb-0 px-6 md:pl-[10vw] md:w-1/2"
+              style={{ opacity: text3Opacity, x: text3X, pointerEvents: 'none' }}
+            >
+              <div className="max-w-xl text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-4 font-sans text-sm tracking-[0.15em] uppercase text-tertiary mb-6">
+                  The Atmosphere
+                  <div className="w-10 h-px bg-tertiary hidden md:block"></div>
+                </div>
+                <h1 className="font-display text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] mb-6 text-on-surface">
+                  Designed for <br/><em className="text-primary not-italic">The Senses</em>
+                </h1>
+                <p className="font-body text-base md:text-xl text-on-surface-variant max-w-[500px] leading-relaxed mx-auto md:ml-0 md:mr-auto">
+                  Warmth and vibrancy in every corner, making memories unforgettable.
+                </p>
+              </div>
+            </motion.div>
+          </>
+        )}
 
-        {/* Text 3 */}
-        <motion.div
-          className="hero-content absolute inset-0 flex flex-col items-center justify-center z-10"
-          style={{ opacity: text3Opacity, x: text3X, pointerEvents: 'none' }}
-        >
-          <div className="hero-eyebrow">The Atmosphere</div>
-          <h1 className="hero-title">Designed for <br/><em>The Senses</em></h1>
-          <p className="hero-subtitle">Warmth and vibrancy in every corner, making memories unforgettable.</p>
-        </motion.div>
-
-        {/* Text 4 */}
-        <motion.div
-          className="hero-content absolute inset-0 flex flex-col items-center justify-center z-10"
-          style={{ opacity: text4Opacity, y: text4Y, pointerEvents: loaded ? 'auto' : 'none' }}
-        >
-          <div className="hero-eyebrow">Experience HLDR</div>
-          <h1 className="hero-title">Reserve Your <br/><em>Evening</em></h1>
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginTop: 32 }}>
-            <a href="#reservation" className="btn-gold" style={{ pointerEvents: 'auto' }}>
-              <span>Reserve a Table</span>
-            </a>
-            <a href="#menu" className="btn-gold" style={{ borderColor: 'rgba(212,175,55,0.35)', color: 'var(--cream-dim)', pointerEvents: 'auto' }}>
-              <span>View Menu</span>
-            </a>
-          </div>
-        </motion.div>
-
-        <div className="hero-scroll-hint z-10">
-          <div className="scroll-line" />
-          <span>Scroll</span>
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-10 text-on-surface-variant">
+          <div className="w-px h-16 bg-gradient-to-b from-transparent to-primary"></div>
+          <span className="font-sans text-[10px] tracking-[0.2em] uppercase text-primary">Scroll</span>
         </div>
       </div>
     </div>

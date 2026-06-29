@@ -1,37 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Cinzel } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  variable: "--font-cinzel",
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "HLDR — Fine Dining Experience",
-  description: "An intimate fine dining restaurant celebrating artisanal cuisine, crafted with passion and served in a space designed for the senses.",
-  keywords: ["fine dining", "restaurant", "tasting menu", "luxury dining"],
-  openGraph: {
-    title: "HLDR — Fine Dining Experience",
-    description: "Where Flavour Finds its Soul.",
-    type: "website",
-  },
+  title: "Delite Family Restaurant & Cafe",
+  description: "A hidden culinary lounge where exquisite flavors meet modern artistry.",
 };
 
 export default function RootLayout({
@@ -40,11 +12,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${cormorant.variable} ${cinzel.variable}`}
-    >
-      <body>{children}</body>
+    <html lang="en" className="dark">
+      <head>
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
+        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Manrope:wght@200..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased selection:bg-primary/30 selection:text-primary">
+        {children}
+      </body>
     </html>
   );
 }
