@@ -10,8 +10,8 @@ function padded(n: number) {
 }
 
 function getFrameSrc(index: number) {
-  if (index === 0) return '/newframes/frame_240.png';
-  return `/newframes/frame_${padded(index)}.png`;
+  if (index === 0) return '/anotherframes/frame_240.png';
+  return `/anotherframes/frame_${padded(index)}.png`;
 }
 
 export default function HeroSection() {
